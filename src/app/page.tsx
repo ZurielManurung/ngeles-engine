@@ -21,9 +21,11 @@ export default function Home() {
 
   const presets = [
     'gak bisa nyelesaiin task hari ini mau main game dulu',
-    'Telat meeting pagi 30 menit',
-    'Batal nongkrong malam ini',
-    'Deadline laporan/tugas terlewat',
+    'gak bisa ngedate besok soalnya mau keluar bareng temen',
+    'Telat meeting pagi 30 menit gara-gara kesiangan',
+    'Batal nongkrong malam ini padahal udah di-WA kawan',
+    'Belum ngerjain laporan/tugas padahal udah H-1 deadline',
+    'Mager diajak kencan padahal dompet lagi kering kerontang',
   ];
 
   const recipients: TargetRecipient[] = [
