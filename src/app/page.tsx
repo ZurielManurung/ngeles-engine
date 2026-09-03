@@ -30,7 +30,7 @@ export default function Home() {
     'Teman / Tongkrongan',
     'Bos / Atasan',
     'Dosen / Kampus',
-    'Pasangan / Doang',
+    'Pasangan / Doi',
     'Umum',
   ];
 

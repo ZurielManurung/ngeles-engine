@@ -10,4 +10,4 @@ export interface ExcuseResponse {
   model_used?: string;
 }
 
-export type TargetRecipient = 'Bos / Atasan' | 'Teman / Tongkrongan' | 'Pasangan / Doang' | 'Dosen / Kampus' | 'Umum';
+export type TargetRecipient = 'Bos / Atasan' | 'Teman / Tongkrongan' | 'Pasangan / Doi' | 'Dosen / Kampus' | 'Umum';
