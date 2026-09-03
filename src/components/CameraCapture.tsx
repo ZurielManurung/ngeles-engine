@@ -15,11 +15,12 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  // Tips with balanced text length to keep container height rock-solid & fixed
   const tips = [
     'Selalu sertakan emoji pasrah (🙏/😭) untuk meningkatkan keabsahan alibi hingga +45%.',
     'Kirim Voice Note (VN) di jam ganjil (misal 07:14) agar alibi terkesan spontan & dadakan.',
-    'Gunakan fitur View Once (sekali lihat) di WA untuk alibi Tier 3 agar misterius & ga bisa di-ss.',
-    'Raut muka cengengesan polos biasanya bikin lawan bicara pasrah memaklumi.',
+    'Gunakan fitur View Once (sekali lihat) di WA untuk alibi Tier 3 agar misterius & aman.',
+    'Raut muka cengengesan polos biasanya langsung membuat lawan bicara pasrah memaklumi.',
   ];
 
   const [currentTipIdx, setCurrentTipIdx] = useState(0);
@@ -230,7 +231,7 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
         </div>
       </div>
 
-      {/* AI Radar Stats & Tips Widget to fill empty space under photo */}
+      {/* AI Radar Stats & Fixed Height Tips Widget */}
       <div className="flex flex-col gap-2.5 pt-2">
         {/* Radar Metrics Grid */}
         <div className="grid grid-cols-2 gap-2">
@@ -250,17 +251,17 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
           </div>
         </div>
 
-        {/* Dynamic Tips Box */}
-        <div className="bg-gradient-to-r from-purple-950/30 via-zinc-950 to-amber-950/30 border border-purple-500/20 rounded-xl p-3 flex items-start gap-2.5 shadow-md">
-          <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 animate-pulse" />
-          <div className="flex-1">
+        {/* Dynamic Tips Box with Paten Fixed Minimum Height (min-h-[66px]) to Prevent Layout Shift */}
+        <div className="bg-gradient-to-r from-purple-950/30 via-zinc-950 to-amber-950/30 border border-purple-500/20 rounded-xl p-3 flex items-start gap-2.5 shadow-md min-h-[68px] justify-center flex-col">
+          <div className="flex items-center gap-1.5">
+            <Lightbulb className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
             <p className="text-[10px] font-extrabold text-purple-300 uppercase tracking-wider">
               Tips Guru Ngeles #{(currentTipIdx % 4) + 1}
             </p>
-            <p className="text-xs text-zinc-300 font-medium leading-tight mt-0.5 transition-all duration-300">
-              "{tips[currentTipIdx]}"
-            </p>
           </div>
+          <p className="text-xs text-zinc-300 font-medium leading-tight transition-all duration-300 mt-0.5">
+            "{tips[currentTipIdx]}"
+          </p>
         </div>
       </div>
     </div>
