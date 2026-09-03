@@ -117,19 +117,19 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
   }, []);
 
   return (
-    <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 sm:p-5 flex flex-col gap-4 shadow-xl h-full justify-between">
-      <div className="flex flex-col gap-3">
+    <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4.5 flex flex-col gap-3 shadow-xl h-full justify-between">
+      <div className="flex flex-col gap-2.5">
         <div className="flex items-center justify-between">
           <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
             <Camera className="w-4 h-4 text-amber-400" />
             <span>Upload / Ambil Foto Selfie (Bukti Visual)</span>
           </label>
           {imagePreview ? (
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1 font-medium">
+            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1 font-medium">
               <Check className="w-3 h-3" /> Foto Siap!
             </span>
           ) : (
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center gap-1 font-medium">
+            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center gap-1 font-medium">
               <Sparkles className="w-3 h-3 text-amber-400" /> Auto Face Scan
             </span>
           )}
@@ -150,9 +150,9 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
               <button
                 type="button"
                 onClick={capturePhoto}
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-6 py-2.5 rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-2 transition-transform active:scale-95 z-10"
+                className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-5 py-2 rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-2 transition-transform active:scale-95 z-10 text-xs"
               >
-                <Camera className="w-5 h-5" /> Jepret Foto!
+                <Camera className="w-4 h-4" /> Jepret Foto!
               </button>
             </div>
           )}
@@ -170,11 +170,11 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
                 <button
                   type="button"
                   onClick={startCamera}
-                  className="bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 text-xs font-semibold px-4 py-2 rounded-xl border border-zinc-700 flex items-center gap-1.5 shadow-lg"
+                  className="bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 text-xs font-semibold px-3.5 py-1.5 rounded-xl border border-zinc-700 flex items-center gap-1.5 shadow-lg"
                 >
                   <RefreshCw className="w-3.5 h-3.5" /> Foto Ulang Kamera
                 </button>
-                <label className="cursor-pointer bg-amber-500/90 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-lg">
+                <label className="cursor-pointer bg-amber-500/90 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg">
                   <Upload className="w-3.5 h-3.5" /> Ganti File
                   <input
                     type="file"
@@ -189,33 +189,33 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
 
           {/* Case 3: Initial Empty State */}
           {!isCameraActive && !imagePreview && (
-            <div className="p-6 text-center flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center text-zinc-400 shadow-md">
-                <Camera className="w-6 h-6" />
+            <div className="p-5 text-center flex flex-col items-center gap-2.5">
+              <div className="w-10 h-10 rounded-2xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center text-zinc-400 shadow-md">
+                <Camera className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-zinc-300">Ambil Selfie atau Upload Foto</p>
-                <p className="text-xs text-zinc-500 mt-1 max-w-xs">
+                <p className="text-xs font-semibold text-zinc-300">Ambil Selfie atau Upload Foto</p>
+                <p className="text-[11px] text-zinc-500 mt-0.5 max-w-xs">
                   AI akan menganalisis raut wajah (senyum/muka bantal) & suasana foto secara real-time.
                 </p>
               </div>
 
               {cameraError && (
-                <p className="text-xs text-rose-400 flex items-center gap-1 bg-rose-500/10 px-3 py-1 rounded-lg border border-rose-500/20">
-                  <AlertCircle className="w-3.5 h-3.5" /> {cameraError}
+                <p className="text-[11px] text-rose-400 flex items-center gap-1 bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20">
+                  <AlertCircle className="w-3 h-3" /> {cameraError}
                 </p>
               )}
 
-              <div className="flex flex-wrap justify-center items-center gap-2 mt-2">
+              <div className="flex flex-wrap justify-center items-center gap-2 mt-1">
                 <button
                   type="button"
                   onClick={startCamera}
-                  className="bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg shadow-amber-500/20 transition hover:scale-105 active:scale-95"
+                  className="bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg shadow-amber-500/20 transition hover:scale-105 active:scale-95"
                 >
-                  <Camera className="w-4 h-4" /> Buka Kamera
+                  <Camera className="w-3.5 h-3.5" /> Buka Kamera
                 </button>
-                <label className="cursor-pointer bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 text-xs font-semibold px-4 py-2 rounded-xl flex items-center gap-2 transition">
-                  <Upload className="w-4 h-4 text-zinc-400" /> Upload Gambar
+                <label className="cursor-pointer bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 text-xs font-semibold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 transition">
+                  <Upload className="w-3.5 h-3.5 text-zinc-400" /> Upload Gambar
                   <input
                     type="file"
                     accept="image/*"
@@ -231,35 +231,35 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
         </div>
       </div>
 
-      {/* AI Radar Stats & Fixed Height Tips Widget */}
-      <div className="flex flex-col gap-2.5 pt-2">
+      {/* AI Radar Stats & Compact Tips Widget */}
+      <div className="flex flex-col gap-2">
         {/* Radar Metrics Grid */}
         <div className="grid grid-cols-2 gap-2">
-          <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-2.5 flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-amber-400 shrink-0" />
+          <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-2 flex items-center gap-2">
+            <Cpu className="w-3.5 h-3.5 text-amber-400 shrink-0" />
             <div>
-              <p className="text-[10px] text-zinc-500 font-semibold uppercase">Vision Model</p>
-              <p className="text-[11px] font-bold text-zinc-200">Gemini 3.5 Lite</p>
+              <p className="text-[9px] text-zinc-500 font-semibold uppercase">Vision Model</p>
+              <p className="text-[10px] font-bold text-zinc-200">Gemini 3.5 Lite</p>
             </div>
           </div>
-          <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-2.5 flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-2 flex items-center gap-2">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
             <div>
-              <p className="text-[10px] text-zinc-500 font-semibold uppercase">Alibi Safety</p>
-              <p className="text-[11px] font-bold text-emerald-400">High Confidence</p>
+              <p className="text-[9px] text-zinc-500 font-semibold uppercase">Alibi Safety</p>
+              <p className="text-[10px] font-bold text-emerald-400">High Confidence</p>
             </div>
           </div>
         </div>
 
-        {/* Dynamic Tips Box with Paten Fixed Minimum Height (min-h-[66px]) to Prevent Layout Shift */}
-        <div className="bg-gradient-to-r from-purple-950/30 via-zinc-950 to-amber-950/30 border border-purple-500/20 rounded-xl p-3 flex items-start gap-2.5 shadow-md min-h-[68px] justify-center flex-col">
+        {/* Dynamic Tips Box with Compact Padding & Paten Height */}
+        <div className="bg-gradient-to-r from-purple-950/30 via-zinc-950 to-amber-950/30 border border-purple-500/20 rounded-xl p-2.5 flex flex-col justify-center shadow-md min-h-[56px]">
           <div className="flex items-center gap-1.5">
-            <Lightbulb className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
-            <p className="text-[10px] font-extrabold text-purple-300 uppercase tracking-wider">
+            <Lightbulb className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" />
+            <p className="text-[9px] font-extrabold text-purple-300 uppercase tracking-wider">
               Tips Guru Ngeles #{(currentTipIdx % 4) + 1}
             </p>
           </div>
-          <p className="text-xs text-zinc-300 font-medium leading-tight transition-all duration-300 mt-0.5">
+          <p className="text-[11px] text-zinc-300 font-medium leading-tight transition-all duration-300 mt-0.5">
             "{tips[currentTipIdx]}"
           </p>
         </div>
