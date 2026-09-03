@@ -94,9 +94,9 @@ export default function Home() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-amber-500 selection:text-zinc-950">
       <Navbar />
 
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8 flex flex-col gap-8">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 flex flex-col gap-8">
         {/* Hero Banner */}
-        <section className="text-center flex flex-col items-center gap-3 py-4">
+        <section className="text-center flex flex-col items-center gap-3 py-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-purple-500/10 border border-amber-500/20 text-amber-300 text-xs font-bold shadow-lg">
             <Sparkles className="w-3.5 h-3.5" /> Absurd Hackathon 2026 Submission
           </div>
@@ -108,103 +108,110 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Input Form Section */}
+        {/* Input Form Section - 2 Columns on Laptop/Desktop, 1 Column on Mobile */}
         {!result && (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-3xl mx-auto w-full">
-            {/* Target Recipient Selector */}
-            <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
-              <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
-                <UserCheck className="w-4 h-4 text-amber-400" /> Target Penerima Alasan
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {recipients.map((r) => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => setRecipient(r)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
-                      recipient === r
-                        ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
-                        : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700'
-                    }`}
-                  >
-                    {r}
-                  </button>
-                ))}
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-6xl mx-auto w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+              {/* Left Column: Target Recipient + Problem Input */}
+              <div className="flex flex-col gap-6">
+                {/* Target Recipient Selector */}
+                <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+                  <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
+                    <UserCheck className="w-4 h-4 text-amber-400" /> Target Penerima Alasan
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {recipients.map((r) => (
+                      <button
+                        key={r}
+                        type="button"
+                        onClick={() => setRecipient(r)}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                          recipient === r
+                            ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                            : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700'
+                        }`}
+                      >
+                        {r}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Problem Input */}
+                <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3 flex-1">
+                  <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
+                    <MessageSquareWarning className="w-4 h-4 text-amber-400" /> Masalah / Situasi yang Dihadapi
+                  </label>
+                  <textarea
+                    value={problem}
+                    onChange={(e) => setProblem(e.target.value)}
+                    placeholder="Contoh: Telat meeting 30 menit, belum ngerjain laporan, batal nongkrong..."
+                    rows={4}
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition resize-none"
+                  />
+
+                  {/* Preset Chips */}
+                  <div className="flex flex-wrap gap-1.5 items-center mt-1">
+                    <span className="text-[11px] font-semibold text-zinc-500 w-full mb-0.5">Contoh Cepat:</span>
+                    {presets.map((preset) => (
+                      <button
+                        key={preset}
+                        type="button"
+                        onClick={() => setProblem(preset)}
+                        className="text-[11px] px-2.5 py-1.5 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 border border-zinc-700/60 transition text-left leading-tight"
+                      >
+                        {preset}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Camera / Selfie Upload */}
+              <div className="flex flex-col h-full">
+                <CameraCapture
+                  onImageCaptured={(img) => setSelfieImage(img)}
+                  imagePreview={selfieImage}
+                />
               </div>
             </div>
 
-            {/* Problem Input */}
-            <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
-              <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
-                <MessageSquareWarning className="w-4 h-4 text-amber-400" /> Masalah / Situasi yang Dihadapi
-              </label>
-              <textarea
-                value={problem}
-                onChange={(e) => setProblem(e.target.value)}
-                placeholder="Contoh: Telat meeting 30 menit, belum ngerjain laporan, batal nongkrong..."
-                rows={3}
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition resize-none"
-              />
-
-              {/* Preset Chips */}
-              <div className="flex flex-wrap gap-1.5 items-center">
-                <span className="text-[11px] font-semibold text-zinc-500">Contoh Cepat:</span>
-                {presets.map((preset) => (
-                  <button
-                    key={preset}
-                    type="button"
-                    onClick={() => setProblem(preset)}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 border border-zinc-700/60 transition"
-                  >
-                    {preset}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Camera / Selfie Upload */}
-            <CameraCapture
-              onImageCaptured={(img) => setSelfieImage(img)}
-              imagePreview={selfieImage}
-            />
-
-            {/* Interactive Quota Countdown Banner */}
-            {quotaSeconds !== null && (
-              <QuotaCountdownBanner
-                initialSeconds={quotaSeconds}
-                onTimerFinished={() => setQuotaSeconds(null)}
-              />
-            )}
-
-            {/* General Error Message */}
-            {error && (
-              <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold p-4 rounded-xl flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
-                <span>{error}</span>
-              </div>
-            )}
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading || quotaSeconds !== null}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:via-rose-400 hover:to-purple-500 text-zinc-950 font-black text-base tracking-wide shadow-xl shadow-rose-500/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <RefreshCw className="w-5 h-5 animate-spin text-zinc-950" />
-                  <span>Sedang Menganalisis Visual Selfie & Mengarang Alasan...</span>
-                </>
-              ) : quotaSeconds !== null ? (
-                <span>Menunggu Kuota Reset ({quotaSeconds}s)...</span>
-              ) : (
-                <>
-                  <Zap className="w-5 h-5 fill-zinc-950" />
-                  <span>Hasilkan 3 Tier Alasan Ngeles!</span>
-                </>
+            {/* Bottom Actions: Interactive Quota Banner, Error, & Big Submit Button */}
+            <div className="flex flex-col gap-4 mt-2">
+              {quotaSeconds !== null && (
+                <QuotaCountdownBanner
+                  initialSeconds={quotaSeconds}
+                  onTimerFinished={() => setQuotaSeconds(null)}
+                />
               )}
-            </button>
+
+              {error && (
+                <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold p-4 rounded-xl flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading || quotaSeconds !== null}
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:via-rose-400 hover:to-purple-500 text-zinc-950 font-black text-base tracking-wide shadow-xl shadow-rose-500/20 transition-all hover:scale-[1.005] active:scale-[0.995] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw className="w-5 h-5 animate-spin text-zinc-950" />
+                    <span>Sedang Menganalisis Visual Selfie & Mengarang Alasan...</span>
+                  </>
+                ) : quotaSeconds !== null ? (
+                  <span>Menunggu Kuota Reset ({quotaSeconds}s)...</span>
+                ) : (
+                  <>
+                    <Zap className="w-5 h-5 fill-zinc-950" />
+                    <span>Hasilkan 3 Tier Alasan Ngeles!</span>
+                  </>
+                )}
+              </button>
+            </div>
           </form>
         )}
 
