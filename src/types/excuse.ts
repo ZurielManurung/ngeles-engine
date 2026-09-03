@@ -7,6 +7,7 @@ export interface ExcuseRecommendation {
 export interface ExcuseResponse {
   visual_breakdown: string;
   recommendations: ExcuseRecommendation[];
+  model_used?: string;
 }
 
 export type TargetRecipient = 'Bos / Atasan' | 'Teman / Tongkrongan' | 'Pasangan / Doang' | 'Dosen / Kampus' | 'Umum';

@@ -61,7 +61,7 @@ export default function Home() {
 
       if (!response.ok) {
         if (data.isQuotaError) {
-          setQuotaSeconds(data.retrySeconds || 35);
+          setQuotaSeconds(data.retrySeconds || 30);
           return;
         }
         throw new Error(data.error || 'Gagal memproses alasan.');
@@ -229,7 +229,10 @@ export default function Home() {
 
             {/* Visual Breakdown */}
             {result.visual_breakdown && (
-              <VisualBreakdown breakdown={result.visual_breakdown} />
+              <VisualBreakdown
+                breakdown={result.visual_breakdown}
+                modelUsed={result.model_used}
+              />
             )}
 
             {/* 3 Tier Recommendations Grid */}
@@ -244,7 +247,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600">
-        <p>Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision API</p>
+        <p>Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision AI</p>
       </footer>
     </div>
   );

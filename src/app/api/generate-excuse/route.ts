@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
     const genAI = new GoogleGenerativeAI(apiKey);
     
-    // Optimized models: gemini-3.5-flash-lite has much higher RPM quota & ultra fast vision speed
+    // Candidate working models
     const candidateModels = [
       'gemini-3.5-flash-lite',
       'gemini-flash-lite-latest',
@@ -117,7 +117,7 @@ Output HANYA berupa JSON valid sesuai format ini:
 
     for (const modelName of candidateModels) {
       try {
-        console.log(`🚀 Mengirim prompt & foto ke Model High-Quota (${modelName})...`);
+        console.log(`🚀 Mengirim prompt & foto ke Model Google AI (${modelName})...`);
 
         const model = genAI.getGenerativeModel({
           model: modelName,
@@ -137,17 +137,16 @@ Output HANYA berupa JSON valid sesuai format ini:
         console.log(`🎭 Analisis Wajah Hasil AI : "${jsonResponse.visual_breakdown}"`);
         console.log('=============================================================\n');
 
-        return NextResponse.json(jsonResponse);
+        return NextResponse.json({
+          ...jsonResponse,
+          model_used: modelName,
+        });
       } catch (err: any) {
         lastError = err;
         const errStr = err?.message || String(err);
         console.warn(`⚠️ Model ${modelName} Gagal: ${errStr}`);
 
         if (errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('rate-limits')) {
-          const retryMatch = errStr.match(/retry in (\d+)/i) || errStr.match(/retryDelay.*?(\d+)/i);
-          const seconds = retryMatch ? parseInt(retryMatch[1], 10) : 30;
-
-          // If current model is rate limited, try next candidate model!
           continue;
         }
       }
