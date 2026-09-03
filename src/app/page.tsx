@@ -19,13 +19,12 @@ export default function Home() {
   const [quotaSeconds, setQuotaSeconds] = useState<number | null>(null);
   const [result, setResult] = useState<ExcuseResponse | null>(null);
 
+  // Short & punchy quick presets
   const presets = [
-    'gak bisa nyelesaiin task hari ini mau main game dulu',
-    'gak bisa ngedate besok soalnya mau keluar bareng temen',
-    'Telat meeting pagi 30 menit gara-gara kesiangan',
-    'Batal nongkrong malam ini padahal udah di-WA kawan',
-    'Belum ngerjain laporan/tugas padahal udah H-1 deadline',
-    'Mager diajak kencan padahal dompet lagi kering kerontang',
+    'Mager ngerjain task, mau main game',
+    'Batal ngedate besok bareng doi',
+    'Telat meeting pagi gara-gara kesiangan',
+    'Batal nongkrong malam ini',
   ];
 
   const recipients: TargetRecipient[] = [
@@ -138,7 +137,7 @@ export default function Home() {
                 </div>
 
                 {/* Problem Input */}
-                <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3 flex-1">
+                <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
                   <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
                     <MessageSquareWarning className="w-4 h-4 text-amber-400" /> Masalah / Situasi yang Dihadapi
                   </label>
@@ -146,7 +145,7 @@ export default function Home() {
                     value={problem}
                     onChange={(e) => setProblem(e.target.value)}
                     placeholder="Contoh: Telat meeting 30 menit, belum ngerjain laporan, batal nongkrong..."
-                    rows={4}
+                    rows={3}
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition resize-none"
                   />
 
@@ -158,7 +157,7 @@ export default function Home() {
                         key={preset}
                         type="button"
                         onClick={() => setProblem(preset)}
-                        className="text-[11px] px-2.5 py-1.5 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 border border-zinc-700/60 transition text-left leading-tight"
+                        className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 border border-zinc-700/60 transition text-left leading-tight"
                       >
                         {preset}
                       </button>
