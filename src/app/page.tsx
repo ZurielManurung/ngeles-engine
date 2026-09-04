@@ -200,6 +200,7 @@ export default function Home() {
                 <CameraCapture
                   onImageCaptured={(img) => setSelfieImage(img)}
                   imagePreview={selfieImage}
+                  currentTheme={theme}
                 />
               </div>
             </div>

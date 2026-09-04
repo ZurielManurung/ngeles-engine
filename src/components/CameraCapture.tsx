@@ -6,9 +6,10 @@ import { Camera, RefreshCw, Upload, Check, AlertCircle, Sparkles, ShieldCheck, C
 interface CameraCaptureProps {
   onImageCaptured: (base64Image: string | null) => void;
   imagePreview: string | null;
+  currentTheme?: 'dark' | 'nature';
 }
 
-export default function CameraCapture({ onImageCaptured, imagePreview }: CameraCaptureProps) {
+export default function CameraCapture({ onImageCaptured, imagePreview, currentTheme = 'nature' }: CameraCaptureProps) {
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -116,12 +117,18 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
     };
   }, []);
 
+  const isNature = currentTheme === 'nature';
+  const primaryBg = isNature ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-amber-500 hover:bg-amber-400';
+  const primaryText = isNature ? 'text-emerald-400' : 'text-amber-400';
+  const primaryShadow = isNature ? 'shadow-emerald-500/20' : 'shadow-amber-500/20';
+  const badgeBg = isNature ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20' : 'bg-amber-500/10 text-amber-300 border-amber-500/20';
+
   return (
-    <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4.5 flex flex-col gap-3 shadow-xl h-full justify-between">
+    <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4.5 flex flex-col gap-3 shadow-2xl backdrop-blur-md h-full justify-between">
       <div className="flex flex-col gap-2.5">
         <div className="flex items-center justify-between">
           <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
-            <Camera className="w-4 h-4 text-amber-400" />
+            <Camera className={`w-4 h-4 ${primaryText}`} />
             <span>Upload / Ambil Foto Selfie (Bukti Visual)</span>
           </label>
           {imagePreview ? (
@@ -129,8 +136,8 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
               <Check className="w-3 h-3" /> Foto Siap!
             </span>
           ) : (
-            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center gap-1 font-medium">
-              <Sparkles className="w-3 h-3 text-amber-400" /> Auto Face Scan
+            <span className={`text-[11px] px-2.5 py-0.5 rounded-full border flex items-center gap-1 font-medium ${badgeBg}`}>
+              <Sparkles className={`w-3 h-3 ${primaryText}`} /> Auto Face Scan
             </span>
           )}
         </div>
@@ -150,7 +157,7 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
               <button
                 type="button"
                 onClick={capturePhoto}
-                className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-5 py-2 rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-2 transition-transform active:scale-95 z-10 text-xs"
+                className={`absolute bottom-3 left-1/2 -translate-x-1/2 ${primaryBg} text-zinc-950 font-bold px-5 py-2 rounded-full shadow-lg ${primaryShadow} flex items-center gap-2 transition-transform active:scale-95 z-10 text-xs`}
               >
                 <Camera className="w-4 h-4" /> Jepret Foto!
               </button>
@@ -174,7 +181,7 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
                 >
                   <RefreshCw className="w-3.5 h-3.5" /> Foto Ulang Kamera
                 </button>
-                <label className="cursor-pointer bg-amber-500/90 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg">
+                <label className={`cursor-pointer ${primaryBg} text-zinc-950 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg`}>
                   <Upload className="w-3.5 h-3.5" /> Ganti File
                   <input
                     type="file"
@@ -210,7 +217,7 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
                 <button
                   type="button"
                   onClick={startCamera}
-                  className="bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg shadow-amber-500/20 transition hover:scale-105 active:scale-95"
+                  className={`${primaryBg} text-zinc-950 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg ${primaryShadow} transition hover:scale-105 active:scale-95`}
                 >
                   <Camera className="w-3.5 h-3.5" /> Buka Kamera
                 </button>
@@ -236,7 +243,7 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
         {/* Radar Metrics Grid */}
         <div className="grid grid-cols-2 gap-2">
           <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-2 flex items-center gap-2">
-            <Cpu className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Cpu className={`w-3.5 h-3.5 ${primaryText} shrink-0`} />
             <div>
               <p className="text-[9px] text-zinc-500 font-semibold uppercase">Vision Model</p>
               <p className="text-[10px] font-bold text-zinc-200">Gemini 3.5 Lite</p>
@@ -251,11 +258,11 @@ export default function CameraCapture({ onImageCaptured, imagePreview }: CameraC
           </div>
         </div>
 
-        {/* Dynamic Tips Box with Compact Padding & Paten Height */}
-        <div className="bg-gradient-to-r from-purple-950/30 via-zinc-950 to-amber-950/30 border border-purple-500/20 rounded-xl p-2.5 flex flex-col justify-center shadow-md min-h-[56px]">
+        {/* Dynamic Tips Box with Dynamic Theme Glow */}
+        <div className={`bg-gradient-to-r ${isNature ? 'from-emerald-950/40 via-zinc-950 to-teal-950/40 border-emerald-500/30' : 'from-purple-950/30 via-zinc-950 to-amber-950/30 border-purple-500/20'} border rounded-xl p-2.5 flex flex-col justify-center shadow-md min-h-[56px]`}>
           <div className="flex items-center gap-1.5">
-            <Lightbulb className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" />
-            <p className="text-[9px] font-extrabold text-purple-300 uppercase tracking-wider">
+            <Lightbulb className={`w-3 h-3 ${primaryText} shrink-0 animate-pulse`} />
+            <p className={`text-[9px] font-extrabold ${isNature ? 'text-emerald-300' : 'text-purple-300'} uppercase tracking-wider`}>
               Tips Guru Ngeles #{(currentTipIdx % 4) + 1}
             </p>
           </div>
