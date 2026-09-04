@@ -7,10 +7,11 @@ import VisualBreakdown from '@/components/VisualBreakdown';
 import ExcuseCard from '@/components/ExcuseCard';
 import QuotaCountdownBanner from '@/components/QuotaCountdownBanner';
 import { ExcuseResponse, TargetRecipient } from '@/types/excuse';
-import { Zap, Sparkles, UserCheck, AlertCircle, RefreshCw, MessageSquareWarning } from 'lucide-react';
+import { Zap, UserCheck, AlertCircle, RefreshCw, MessageSquareWarning } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function Home() {
+  const [theme, setTheme] = useState<'dark' | 'nature'>('nature'); // Default to nature emerald theme
   const [problem, setProblem] = useState('');
   const [recipient, setRecipient] = useState<TargetRecipient>('Teman / Tongkrongan');
   const [selfieImage, setSelfieImage] = useState<string | null>(null);
@@ -89,39 +90,52 @@ export default function Home() {
     setQuotaSeconds(null);
   };
 
-  return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-amber-500 selection:text-zinc-950 bg-[url('/bg-pattern.jpg')] bg-repeat bg-fixed relative overflow-x-hidden">
-      {/* Ambient Blur Gradient Background Lights */}
-      <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[150px] pointer-events-none" />
-      <div className="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-500/20 rounded-full blur-[150px] pointer-events-none" />
-      <div className="fixed top-[40%] right-[15%] w-[350px] h-[350px] bg-rose-500/15 rounded-full blur-[130px] pointer-events-none" />
+  const bgUrl = theme === 'nature' ? "bg-[url('/bg-nature.jpg')]" : "bg-[url('/bg-pattern.jpg')]";
 
-      <Navbar />
+  return (
+    <div className={`min-h-screen bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-emerald-500 selection:text-zinc-950 ${bgUrl} bg-repeat bg-fixed relative overflow-x-hidden transition-all duration-500`}>
+      {/* Ambient Blur Gradient Background Lights */}
+      {theme === 'nature' ? (
+        <>
+          <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-600/25 rounded-full blur-[150px] pointer-events-none transition-all duration-500" />
+          <div className="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-[150px] pointer-events-none transition-all duration-500" />
+          <div className="fixed top-[40%] right-[15%] w-[350px] h-[350px] bg-lime-500/15 rounded-full blur-[130px] pointer-events-none transition-all duration-500" />
+        </>
+      ) : (
+        <>
+          <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[150px] pointer-events-none transition-all duration-500" />
+          <div className="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-500/20 rounded-full blur-[150px] pointer-events-none transition-all duration-500" />
+          <div className="fixed top-[40%] right-[15%] w-[350px] h-[350px] bg-rose-500/15 rounded-full blur-[130px] pointer-events-none transition-all duration-500" />
+        </>
+      )}
+
+      <Navbar currentTheme={theme} onThemeChange={(t) => setTheme(t)} />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 flex flex-col gap-8 relative z-10">
         {/* Hero Banner */}
         <section className="text-center flex flex-col items-center gap-3 py-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-amber-500/30 text-amber-300 text-xs font-bold shadow-xl backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Absurd Hackathon 2026 Submission
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-zinc-100 via-amber-200 to-rose-300 bg-clip-text text-transparent drop-shadow-md">
-            The Master of Excuses
+          <h2 className={`text-4xl sm:text-6xl font-black tracking-tight bg-clip-text text-transparent drop-shadow-md transition-colors duration-500 ${
+            theme === 'nature'
+              ? 'bg-gradient-to-r from-emerald-100 via-teal-200 to-lime-300'
+              : 'bg-gradient-to-r from-zinc-100 via-amber-200 to-rose-300'
+          }`}>
+            Berialasan
           </h2>
-          <p className="text-sm sm:text-base text-zinc-300 max-w-2xl font-normal leading-relaxed drop-shadow">
-            Engine alibi otomatis berbasis <span className="text-amber-400 font-semibold">Multimodal AI Vision</span>. Analisis raut wajah selfie kamu & kondisi sekitar untuk menghasilkan 3 tier alasan ngeles kocak yang bikin lawan bicara pasrah memaklumi!
+          <p className="text-sm sm:text-base text-zinc-300 max-w-4xl font-normal leading-relaxed drop-shadow">
+            Engine alibi otomatis berbasis <span className={`${theme === 'nature' ? 'text-emerald-400' : 'text-amber-400'} font-semibold`}>Multimodal AI Vision</span>. Analisis raut wajah selfie kamu & kondisi sekitar untuk menghasilkan 3 tier alasan ngeles kocak yang bikin lawan bicara pasrah memaklumi!
           </p>
         </section>
 
-        {/* Input Form Section - 2 Columns on Laptop/Desktop, 1 Column on Mobile */}
+        {/* Input Form Section - 2 Matching Outside Box Containers */}
         {!result && (
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-6xl mx-auto w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-              {/* Left Column: Target Recipient + Problem Input */}
-              <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              {/* Left Column: Clean, Spacious Outside Box Container */}
+              <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4.5 sm:p-5 shadow-2xl backdrop-blur-md h-full flex flex-col justify-between gap-4">
                 {/* Target Recipient Selector */}
-                <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col gap-3">
+                <div className="flex flex-col gap-3">
                   <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
-                    <UserCheck className="w-4 h-4 text-amber-400" /> Target Penerima Alasan
+                    <UserCheck className={`w-4 h-4 ${theme === 'nature' ? 'text-emerald-400' : 'text-amber-400'}`} /> Target Penerima Alasan
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {recipients.map((r) => (
@@ -131,7 +145,9 @@ export default function Home() {
                         onClick={() => setRecipient(r)}
                         className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                           recipient === r
-                            ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                            ? theme === 'nature'
+                              ? 'bg-emerald-500 text-zinc-950 shadow-md shadow-emerald-500/20'
+                              : 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
                             : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border border-zinc-700'
                         }`}
                       >
@@ -141,17 +157,25 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Problem Input */}
-                <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col gap-3">
+                <div className="w-full h-px bg-zinc-800/80 my-0.5" />
+
+                {/* Problem Input with Extra Large Textarea (h-44 / rows={5}) */}
+                <div className="flex flex-col gap-3 flex-1 justify-between">
                   <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
-                    <MessageSquareWarning className="w-4 h-4 text-amber-400" /> Masalah / Situasi yang Dihadapi
+                    <MessageSquareWarning className={`w-4 h-4 ${theme === 'nature' ? 'text-emerald-400' : 'text-amber-400'}`} /> Masalah / Situasi yang Dihadapi
                   </label>
+
+                  {/* Spacious Textarea Box (h-44 / rows 5) */}
                   <textarea
                     value={problem}
                     onChange={(e) => setProblem(e.target.value)}
                     placeholder="Contoh: Telat meeting 30 menit, belum ngerjain laporan, batal nongkrong..."
-                    rows={3}
-                    className="w-full bg-zinc-950/90 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition resize-none"
+                    rows={5}
+                    className={`w-full h-44 bg-zinc-950/90 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none transition resize-none leading-relaxed ${
+                      theme === 'nature'
+                        ? 'focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50'
+                        : 'focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50'
+                    }`}
                   />
 
                   {/* Preset Chips */}
@@ -162,7 +186,7 @@ export default function Home() {
                         key={preset}
                         type="button"
                         onClick={() => setProblem(preset)}
-                        className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-zinc-300 hover:text-zinc-100 border border-zinc-700/60 transition text-left leading-tight"
+                        className="text-[11px] px-2.5 py-1.5 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-zinc-300 hover:text-zinc-100 border border-zinc-700/60 transition text-left leading-tight"
                       >
                         {preset}
                       </button>
@@ -171,7 +195,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Right Column: Camera / Selfie Upload */}
+              {/* Right Column: Camera / Selfie Upload Outside Box Container */}
               <div className="flex flex-col h-full">
                 <CameraCapture
                   onImageCaptured={(img) => setSelfieImage(img)}
@@ -199,7 +223,11 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={loading || quotaSeconds !== null}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:via-rose-400 hover:to-purple-500 text-zinc-950 font-black text-base tracking-wide shadow-2xl shadow-rose-500/30 transition-all hover:scale-[1.005] active:scale-[0.995] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
+                className={`w-full py-4 rounded-2xl text-zinc-950 font-black text-base tracking-wide shadow-2xl transition-all hover:scale-[1.005] active:scale-[0.995] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2 ${
+                  theme === 'nature'
+                    ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-lime-400 hover:from-emerald-400 hover:via-teal-400 hover:to-lime-300 shadow-emerald-500/30'
+                    : 'bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:via-rose-400 hover:to-purple-500 shadow-rose-500/30'
+                }`}
               >
                 {loading ? (
                   <>
@@ -225,10 +253,10 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-zinc-100 flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-amber-400 fill-amber-400" /> Hasil Rekomendasi Alasan
+                  <Zap className={`w-5 h-5 ${theme === 'nature' ? 'text-emerald-400 fill-emerald-400' : 'text-amber-400 fill-amber-400'}`} /> Hasil Rekomendasi Alasan
                 </h3>
                 <p className="text-xs text-zinc-400 mt-0.5">
-                  Target: <span className="text-amber-400 font-semibold">{recipient}</span> • Masalah: "{problem}"
+                  Target: <span className={`${theme === 'nature' ? 'text-emerald-400' : 'text-amber-400'} font-semibold`}>{recipient}</span> • Masalah: "{problem}"
                 </p>
               </div>
               <button
@@ -260,7 +288,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600 relative z-10 backdrop-blur-md bg-zinc-950/80">
-        <p>Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision AI</p>
+        <p>Berialasan • Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision AI</p>
       </footer>
     </div>
   );
