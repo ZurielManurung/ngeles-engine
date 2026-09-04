@@ -90,19 +90,24 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-amber-500 selection:text-zinc-950">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-amber-500 selection:text-zinc-950 bg-[url('/bg-pattern.jpg')] bg-repeat bg-fixed relative overflow-x-hidden">
+      {/* Ambient Blur Gradient Background Lights */}
+      <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-500/20 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-[40%] right-[15%] w-[350px] h-[350px] bg-rose-500/15 rounded-full blur-[130px] pointer-events-none" />
+
       <Navbar />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 flex flex-col gap-8">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 flex flex-col gap-8 relative z-10">
         {/* Hero Banner */}
         <section className="text-center flex flex-col items-center gap-3 py-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-purple-500/10 border border-amber-500/20 text-amber-300 text-xs font-bold shadow-lg">
-            <Sparkles className="w-3.5 h-3.5" /> Absurd Hackathon 2026 Submission
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-amber-500/30 text-amber-300 text-xs font-bold shadow-xl backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Absurd Hackathon 2026 Submission
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-zinc-100 via-amber-200 to-rose-300 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-zinc-100 via-amber-200 to-rose-300 bg-clip-text text-transparent drop-shadow-md">
             The Master of Excuses
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl font-normal leading-relaxed">
+          <p className="text-sm sm:text-base text-zinc-300 max-w-2xl font-normal leading-relaxed drop-shadow">
             Engine alibi otomatis berbasis <span className="text-amber-400 font-semibold">Multimodal AI Vision</span>. Analisis raut wajah selfie kamu & kondisi sekitar untuk menghasilkan 3 tier alasan ngeles kocak yang bikin lawan bicara pasrah memaklumi!
           </p>
         </section>
@@ -114,7 +119,7 @@ export default function Home() {
               {/* Left Column: Target Recipient + Problem Input */}
               <div className="flex flex-col gap-6">
                 {/* Target Recipient Selector */}
-                <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+                <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col gap-3">
                   <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
                     <UserCheck className="w-4 h-4 text-amber-400" /> Target Penerima Alasan
                   </label>
@@ -127,7 +132,7 @@ export default function Home() {
                         className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                           recipient === r
                             ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
-                            : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700'
+                            : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border border-zinc-700'
                         }`}
                       >
                         {r}
@@ -137,7 +142,7 @@ export default function Home() {
                 </div>
 
                 {/* Problem Input */}
-                <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+                <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col gap-3">
                   <label className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
                     <MessageSquareWarning className="w-4 h-4 text-amber-400" /> Masalah / Situasi yang Dihadapi
                   </label>
@@ -146,18 +151,18 @@ export default function Home() {
                     onChange={(e) => setProblem(e.target.value)}
                     placeholder="Contoh: Telat meeting 30 menit, belum ngerjain laporan, batal nongkrong..."
                     rows={3}
-                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition resize-none"
+                    className="w-full bg-zinc-950/90 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition resize-none"
                   />
 
                   {/* Preset Chips */}
                   <div className="flex flex-wrap gap-1.5 items-center mt-1">
-                    <span className="text-[11px] font-semibold text-zinc-500 w-full mb-0.5">Contoh Cepat:</span>
+                    <span className="text-[11px] font-semibold text-zinc-400 w-full mb-0.5">Contoh Cepat:</span>
                     {presets.map((preset) => (
                       <button
                         key={preset}
                         type="button"
                         onClick={() => setProblem(preset)}
-                        className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 border border-zinc-700/60 transition text-left leading-tight"
+                        className="text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-zinc-300 hover:text-zinc-100 border border-zinc-700/60 transition text-left leading-tight"
                       >
                         {preset}
                       </button>
@@ -194,7 +199,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={loading || quotaSeconds !== null}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:via-rose-400 hover:to-purple-500 text-zinc-950 font-black text-base tracking-wide shadow-xl shadow-rose-500/20 transition-all hover:scale-[1.005] active:scale-[0.995] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:via-rose-400 hover:to-purple-500 text-zinc-950 font-black text-base tracking-wide shadow-2xl shadow-rose-500/30 transition-all hover:scale-[1.005] active:scale-[0.995] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -254,7 +259,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600">
+      <footer className="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600 relative z-10 backdrop-blur-md bg-zinc-950/80">
         <p>Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision AI</p>
       </footer>
     </div>

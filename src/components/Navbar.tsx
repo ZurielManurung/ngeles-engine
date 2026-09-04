@@ -15,7 +15,7 @@ export default function Navbar() {
           </div>
           <div>
             <h1 className="font-extrabold text-lg bg-gradient-to-r from-amber-400 via-rose-400 to-purple-400 bg-clip-text text-transparent">
-              Master of Excuses
+              Berialasan
             </h1>
             <p className="text-xs text-zinc-400 font-medium flex items-center gap-1">
               <span>Ngeles Engine & Multimodal Reasoning Agent</span>

@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       'gemini-3.7-flash',
     ];
 
-    const prompt = `Role: The Master of Excuses (Ngeles Engine & Multimodal Reasoning Agent)
+    const prompt = `Role: Master of Excuses (Ngeles Engine & Multimodal Reasoning Agent) Berialasan App
 
 Tugas:
 Kamu adalah pakar alibi & "ngeles" paling jenius dan serbabisa di Indonesia. Tugasmu adalah menganalisis FOTO SELFIE USER secara AKURAT untuk membaca ekspresi wajah asli pengguna (apakah senyum, cengengesan, kaget, kuyu, pasrah, atau stres), lalu buatkan 3 tier alasan ngeles (alibi) yang SANGAT MASUK AKAL, KOCAK, dan RELEVAN dengan masalah yang diinput ("${user_problem}").
