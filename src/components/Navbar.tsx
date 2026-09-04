@@ -24,7 +24,7 @@ export default function Navbar({ currentTheme = 'dark', onThemeChange }: NavbarP
                 ? 'bg-gradient-to-r from-emerald-300 via-teal-200 to-lime-300'
                 : 'bg-gradient-to-r from-amber-300 via-rose-300 to-purple-300'
             }`}>
-              Berialasan
+              berialasan
             </h1>
             <p className="text-[10px] text-zinc-400 font-medium tracking-wide">
               Ngeles Engine & Multimodal AI Vision

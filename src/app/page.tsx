@@ -119,7 +119,7 @@ export default function Home() {
               ? 'bg-gradient-to-r from-emerald-100 via-teal-200 to-lime-300'
               : 'bg-gradient-to-r from-zinc-100 via-amber-200 to-rose-300'
           }`}>
-            Berialasan
+            berialasan
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 max-w-4xl font-normal leading-relaxed drop-shadow">
             Engine alibi otomatis berbasis <span className={`${theme === 'nature' ? 'text-emerald-400' : 'text-amber-400'} font-semibold`}>Multimodal AI Vision</span>. Analisis raut wajah selfie kamu & kondisi sekitar untuk menghasilkan 3 tier alasan ngeles kocak yang bikin lawan bicara pasrah memaklumi!
@@ -289,7 +289,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600 relative z-10 backdrop-blur-md bg-zinc-950/80">
-        <p>Berialasan • Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision AI</p>
+        <p>berialasan • Built for Absurd Hackathon 2026 • Powered by Next.js & Google Gemini Vision AI</p>
       </footer>
     </div>
   );
